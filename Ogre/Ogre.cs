@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
 
 namespace Ogre
 {
-    class Plat : DbContext
+    class Ogre
     {
-
     }
 }
