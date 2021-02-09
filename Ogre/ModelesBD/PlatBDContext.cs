@@ -6,42 +6,31 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Ogre.ModelesBD
 {
-    public partial class VaccinBDContext : DbContext
+    public partial class PlatBDContext : DbContext
     {
-        public VaccinBDContext()
+        public PlatBDContext()
         {
         }
 
-        public VaccinBDContext(DbContextOptions<VaccinBDContext> options)
+        public PlatBDContext(DbContextOptions<PlatBDContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<TypeVaccin> TypeVaccins { get; set; }
-        public virtual DbSet<Vaccin> Vaccins { get; set; }
+        public virtual DbSet<Plat> Plats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=VaccinBD;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PlatBD;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            modelBuilder.Entity<TypeVaccin>(entity =>
-            {
-                entity.ToTable("TypeVaccin");
-            });
-
-            modelBuilder.Entity<Vaccin>(entity =>
-            {
-                entity.Property(e => e.Nampatient).HasColumnName("NAMPatient");
-            });
 
             OnModelCreatingPartial(modelBuilder);
         }
