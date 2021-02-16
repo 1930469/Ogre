@@ -33,7 +33,7 @@ namespace Ogre
                 Console.WriteLine("L'ogre a manger le plat : " + plat.TypePlat);
                 contexte.Plats.Remove(plat);
                 // et attend selon le nombre de bouchée
-                Thread.Sleep(plat.NbrBouchee);
+                Thread.Sleep(plat.NbrBouchee*1000);
                 contexte.SaveChanges();
             }
             catch (Exception e)
