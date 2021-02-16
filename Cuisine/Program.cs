@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 namespace Cuisine
 {
@@ -27,26 +28,54 @@ namespace Cuisine
                         }; contexte.Plats.Add(platPoulet); contexte.SaveChanges(); break;
                 
             }
+            
         }
-        static void Main(string[] args)
+        static public void AfficherTable()
         {
-            bool full = false;
             Contexte contexte = new Contexte();
-            Random random = new Random();
-            
 
-
-            while (full == false)
-            {
-                int nbrPlat = contexte.Plats.Count();
-                CreePlat(random.Next(1, 3));
-                
-                if (nbrPlat == 100)
-                    full = true;
-            }
-            
             foreach (Plat plat in contexte.Plats)
                 Console.WriteLine(plat);
         }
+
+        static public void CleanBD()
+        {
+            Contexte context = new Contexte();
+
+            foreach (Plat plat in context.Plats)
+                context.Plats.Remove(plat);
+
+            context.SaveChanges();
+            Console.WriteLine("Plat supprimé : " + context.Plats.Count());
+        }
+
+        static void Main(string[] args)
+        {
+            CleanBD();
+
+            bool full = false;
+            Contexte contexte = new Contexte();
+            Random random = new Random();
+            int nbrPlat = contexte.Plats.Count();
+            int platCreer = 0;
+
+            while (full == false)
+            {
+                Thread.Sleep(1000);
+                CreePlat(random.Next(1, 4));
+
+                if (nbrPlat == 10)
+                    full = true;
+
+                platCreer++;
+                AfficherTable();
+            }
+
+            AfficherTable();
+
+            Console.WriteLine("table : " + nbrPlat + "\n Plat Créer : " + platCreer);
+        }
     }
+
 }
+
